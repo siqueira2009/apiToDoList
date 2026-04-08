@@ -1,6 +1,8 @@
-const taskController = require('../controllers/taskController');
+// Essa arquivo é responsável por criar as rotas da API
 
-module.exports = (req, res) => {
+import * as taskController from '../controllers/taskController.js'; // Importa as funções de controle
+
+export default (req, res) => { // Exporta as 
 
     const url = req.url;
     const method = req.method;
@@ -17,7 +19,8 @@ module.exports = (req, res) => {
 
     // GET /tasks/:id
     if (url.startsWith('/tasks') && method == 'GET') {
-        return taskController.listTask(req, res);
+        const id = url.split('/')[2]
+        return taskController.listTask(req, res, id);
     }
 
     // PUT /tasks/:id
@@ -26,10 +29,17 @@ module.exports = (req, res) => {
         return taskController.updateTask(req, res, id);
     }
 
+    // PUT /tasks/:id/:status
+    if (url.startsWith('/tasks/') && method == "PUT") {
+        const id = url.split("/")[2];
+        const status = url.split("/")[3];
+        return taskController.changeStatus(req, res, id, status);
+    }
+
     // DELETE /tasks/:id
     if (url.startsWith('/tasks/') && method == 'DELETE') {
         const id = url.split('/')[2];
-        return taskController.deleteTask(req, res, id);
+        return taskController.changeStatus(req, res, id);
     }
 
     // Rota não encontrada

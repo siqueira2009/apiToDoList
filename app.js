@@ -1,6 +1,6 @@
-const http = require('http');
+import http from 'http';
 
-const taskRoutes = require('./src/routes/taskRoutes');
+import taskRoutes from './src/routes/taskRoutes.js';
 
 const server = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'application/json');

@@ -1,4 +1,4 @@
-const taskService = require('../services/taskServices');
+import * as taskService from '../services/taskServices.js'
 
 // Função auxiliar para ler body
 const getRequestBody = (req) => {
@@ -63,11 +63,11 @@ const deleteTask = (req, res, id) => {
     res.end(JSON.stringify({ message: 'Removida' }));
 };
 
-// Listar 1
+// Listar uma
 const listTask = (req, res, id) => {
     const task = taskService.listTask(id);
 
-    if (!success) {
+    if (!task) {
         res.statusCode = 404;
         return res.end(JSON.stringify(
             { message: 'Tarefa não encontrada!' }
@@ -77,9 +77,25 @@ const listTask = (req, res, id) => {
     res.end(JSON.stringify(task));
 };
 
-module.exports = {
+// Mudar status
+const changeStatus = (req, res, id, status) => {
+    const requestStatus = taskService.changeStatus(id, status);
+
+    if (!requestStatus) {
+        res.statusCode = 404;
+        return res.end(JSON.stringify(
+            { message: 'Tarefa não encontrada!' }
+        ));
+    }
+
+    res.end(JSON.stringify(task));
+}
+
+export {
     createTask,
     listTasks,
     updateTask,
-    deleteTask
+    deleteTask,
+    listTask,
+    changeStatus
 };

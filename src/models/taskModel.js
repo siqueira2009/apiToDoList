@@ -4,6 +4,6 @@ const createTask = (id, title) => {
         title,
         completed: false
     };
-};
+}; 
 
-module.exports = { createTask };
+export default createTask;

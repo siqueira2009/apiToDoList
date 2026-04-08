@@ -1,4 +1,4 @@
-const { createTask } = require('../models/taskModel');
+import createTask from '../models/taskModel.js';
 
 let tasks = [];
 let idCounter = 1;
@@ -33,16 +33,26 @@ const deleteTask = (id) => {
 
 // Listar uma
 const listTask = (id) => {
-    const index = tasks.findIndex(t => t.id == id);
-    if (index == -1) return false;
+    const task = tasks.find(t => t.id == id);
+
+    console.log(id)
 
     return task;
 }
 
-module.exports = {
+// Mudar status
+const changeStatus = (id, status) => {
+    const task = tasks.find(t => t.id == id);
+
+    task.completed = status;
+    return task;
+};
+
+export {
     addTask,
     getTasks,
     updateTask,
     deleteTask,
-    listTask
+    listTask,
+    changeStatus
 };
