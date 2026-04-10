@@ -1,48 +1,48 @@
 // Essa arquivo é responsável por criar as rotas da API
 
-import * as taskController from '../controllers/taskController.js'; // Importa as funções de controle
+import * as taskController from '../controllers/taskController.js'; // Importa todas as funções de controle
 
-export default (req, res) => { // Exporta as 
+// Exporta a função com as condições que verifica as rotas (URLs e métodos) 
+export default (req, res) => {
 
     const url = req.url;
     const method = req.method;
 
-    // GET /tasks
+    // GET /tasks = lista todas as tarefas
     if (url == '/tasks' && method == 'GET') {
-        return taskController.listTasks(req, res);
+        return taskController.listTasks(req, res); // Chama o controle de listar tarefas
     }
 
-    // POST /tasks
+    // POST /tasks = adiciona uma tarefa
     if (url == '/tasks' && method == 'POST') {
-        return taskController.createTask(req, res);
+        return taskController.createTask(req, res); // Chama o controle de criar tarefas
     }
 
-    // GET /tasks/:id
+    // GET /tasks/:id = pega uma tarefa específica
     if (url.startsWith('/tasks') && method == 'GET') {
         const id = url.split('/')[2]
-        return taskController.listTask(req, res, id);
+        return taskController.listTask(req, res, id); // Chama o controle de listar uma tarefa
     }
 
-    // PUT /tasks/:id
+    // PUT /tasks/:id = atualiza uma tarefa específica
     if (url.startsWith('/tasks/') && method == 'PUT') {
         const id = url.split('/')[2];
-        return taskController.updateTask(req, res, id);
+        const status = url.split('/')[3];
+
+        if (status == null || status == undefined) {
+            return taskController.updateTask(req, res, id); // Chama o controle de atualizar uma tarefa
+        } else {
+            return taskController.updateStatus(req, res, id, status); // Chama o controle de atualizar o status de uma tarefa
+        }
     }
 
-    // PUT /tasks/:id/:status
-    if (url.startsWith('/tasks/') && method == "PUT") {
-        const id = url.split("/")[2];
-        const status = url.split("/")[3];
-        return taskController.changeStatus(req, res, id, status);
-    }
-
-    // DELETE /tasks/:id
+    // DELETE /tasks/:id = deleta uma tarefa específica
     if (url.startsWith('/tasks/') && method == 'DELETE') {
         const id = url.split('/')[2];
-        return taskController.changeStatus(req, res, id);
+        return taskController.updateStatus(req, res, id); // Chama o controle de deletar tarefas
     }
 
-    // Rota não encontrada
+    // Rota não encontrada, ou seja, nenhuma condição foi atendida
     res.statusCode = 404;
     res.end(JSON.stringify({ message: 'Rota não encontrada' }));
 };

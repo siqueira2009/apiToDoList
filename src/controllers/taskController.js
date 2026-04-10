@@ -1,6 +1,10 @@
-import * as taskService from '../services/taskServices.js'
+// Arquivo responsável por controlar o que cada rota faz
+// Tem as funções que são chamadas em cada rota
 
-// Função auxiliar para ler body
+import * as taskService from '../services/taskServices.js' // Importa as funções responsáveis pelos serviços 
+
+// Função para ler body
+// Ela faz com que body, que chega em 'chunks', seja construído de parte em parte que chega
 const getRequestBody = (req) => {
     return new Promise((resolve, reject) => {
         let body = '';
@@ -15,30 +19,46 @@ const getRequestBody = (req) => {
     });
 };
 
-// Criar tarefa
-const createTask = async (req, res) => {
-    const body = await getRequestBody(req);
-
-    const task = taskService.addTask(body.title);
-
-    res.statusCode = 201;
-    res.end(JSON.stringify(task));
-};
-
-// Listar tarefas
+// Listar tarefas (GET)
 const listTasks = (req, res) => {
-    const tasks = taskService.getTasks();
+    const tasks = taskService.getTasks(); // Chama o serviço de listar tarefas
 
     res.statusCode = 200;
     res.end(JSON.stringify(tasks));
 };
 
-// Atualizar tarefa
+// Listar uma tarefa (GET)
+const listTask = (req, res, id) => {
+    const task = taskService.listTask(id); // Chama o serviço de listar uma tarefa
+
+    // Caso retorne false, mostra que a tarefa não foi encontrada
+    if (!task) {
+        res.statusCode = 404;
+        return res.end(JSON.stringify(
+            { message: 'Tarefa não encontrada!' }
+        ));
+    }
+
+    res.end(JSON.stringify(task));
+};
+
+// Controle de criar tarefa (POST)
+const createTask = async (req, res) => {
+    const body = await getRequestBody(req);
+
+    const task = taskService.addTask(body.title); // Chama o serviço de adicionar tarefa
+
+    res.statusCode = 201;
+    res.end(JSON.stringify(task));
+};
+
+// Atualizar tarefa (PUT)
 const updateTask = async (req, res, id) => {
     const body = await getRequestBody(req);
 
-    const task = taskService.updateTask(id, body.title);
+    const task = taskService.updateTask(id, body.title); // Chama o serviço de atualizar tarefas
 
+    // Caso retorne false, mostra que a tarefa não foi encontrada
     if (!task) {
         res.statusCode = 404;
         return res.end(JSON.stringify(
@@ -49,10 +69,26 @@ const updateTask = async (req, res, id) => {
     res.end(JSON.stringify(task));
 };
 
-// Deletar tarefa
-const deleteTask = (req, res, id) => {
-    const success = taskService.deleteTask(id);
+// Atualizar status de tarefa (PUT)
+const updateStatus = async (req, res, id, status) => {
+    const task = taskService.updateStatus(id, status); // Chama o serviço de atualizar status de tarefas
 
+    // Caso retorne false, mostra que a tarefa não foi encontrada
+    if (!task) {
+        res.statusCode = 404;
+        return res.end(JSON.stringify(
+            { message: 'Não encontrada' }
+        ));
+    }
+
+    res.end(JSON.stringify(task));
+};
+
+// Deletar tarefa (DELETE)
+const deleteTask = (req, res, id) => {
+    const success = taskService.deleteTask(id); // Chama o serviço de deletar tarefas
+
+    // Caso retorne false, mostra que a tarefa não foi encontrada
     if (!success) {
         res.statusCode = 404;
         return res.end(JSON.stringify(
@@ -63,39 +99,12 @@ const deleteTask = (req, res, id) => {
     res.end(JSON.stringify({ message: 'Removida' }));
 };
 
-// Listar uma
-const listTask = (req, res, id) => {
-    const task = taskService.listTask(id);
-
-    if (!task) {
-        res.statusCode = 404;
-        return res.end(JSON.stringify(
-            { message: 'Tarefa não encontrada!' }
-        ));
-    }
-
-    res.end(JSON.stringify(task));
-};
-
-// Mudar status
-const changeStatus = (req, res, id, status) => {
-    const requestStatus = taskService.changeStatus(id, status);
-
-    if (!requestStatus) {
-        res.statusCode = 404;
-        return res.end(JSON.stringify(
-            { message: 'Tarefa não encontrada!' }
-        ));
-    }
-
-    res.end(JSON.stringify(task));
-}
-
+// Exporta todas as funções de controle para que possa ser usado no arquivo de rotas
 export {
-    createTask,
     listTasks,
+    listTask,
+    createTask,
     updateTask,
     deleteTask,
-    listTask,
-    changeStatus
+    updateStatus
 };
