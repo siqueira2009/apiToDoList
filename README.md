@@ -142,9 +142,11 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 | `GET` | `/tasks` | Lista todas as tarefas |
 | `GET` | `/tasks/:id` | Retorna uma tarefa específica |
 | `POST` | `/tasks` | Cria uma nova tarefa |
+| `POST` | `/tasks/template` | Cria um template com 4 tarefas |
 | `PUT` | `/tasks/:id` | Atualiza uma tarefa específica |
 | `PUT` | `/tasks/:id/:status` | Atualiza o status de `completed` de uma tarefa (`0 = false`, `1 = true`) |
 | `DELETE` | `/tasks/:id` | Remove uma tarefa específica |
+| `DELETE` | `/tasks` | Remove todas as tarefas |
 
 ---
 
@@ -174,7 +176,35 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 2. Listar todas as tarefas — `GET /tasks`
+### 2. Criar um template de tarefas — `POST /tasks/template`
+
+**Resposta:**
+```json
+{
+  "id": 1,
+  "title": "Lavar a louça",
+  "completed": false
+},
+{
+  "id": 2,
+  "title": "Varrer a casa",
+  "completed": false
+},
+{
+  "id": 3,
+  "title": "Fazer lição de PWII",
+  "completed": false
+},
+{
+  "id": 4,
+  "title": "Ir ao médico",
+  "completed": false
+}
+```
+
+---
+
+### 3. Listar todas as tarefas — `GET /tasks`
 
 **Resposta:**
 ```json
@@ -189,7 +219,7 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 3. Buscar tarefa por ID — `GET /tasks/0`
+### 4. Buscar tarefa por ID — `GET /tasks/0`
 
 **Resposta:**
 ```json
@@ -209,7 +239,7 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 4. Atualizar tarefa — `PUT /tasks/0`
+### 5. Atualizar tarefa — `PUT /tasks/0`
 
 **Body (JSON):**
 ```json
@@ -229,7 +259,7 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 5. Atualizar status — `PUT /tasks/0/1`
+### 6. Atualizar status — `PUT /tasks/0/1`
 
 > `1 = true` | `0 = false`
 
@@ -244,18 +274,29 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 6. Deletar tarefa — `DELETE /tasks/0`
+### 7. Deletar tarefa — `DELETE /tasks/0`
 
 **Resposta:**
 ```json
 {
-  "message": "Removida"
+  "message": "Tarefa com id 0 removida com sucesso!"
 }
 ```
 
 ---
 
-### 7. Rota inválida — `GET /qualquer-outra-rota`
+### 8. Deletar todas as tarefas  — `DELETE /tasks`
+
+**Resposta:**
+```json
+{
+  "message": "Todas as tarefas foram removidas com sucesso!"
+}
+```
+
+---
+
+### 9. Rota inválida — `GET /qualquer-outra-rota`
 
 ```json
 {

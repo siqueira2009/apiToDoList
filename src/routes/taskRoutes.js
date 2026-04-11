@@ -18,6 +18,11 @@ export default (req, res) => {
         return taskController.createTask(req, res); // Chama o controle de criar tarefas
     }
 
+    // POST /tasks/template = cria um template de tarefas
+    if (url.startsWith('/tasks/') && method == 'POST') {
+        return taskController.createTemplate(req, res); // Chama o controle de criar um template com 4 tarefas
+    }
+
     // GET /tasks/:id = pega uma tarefa específica
     if (url.startsWith('/tasks') && method == 'GET') {
         const id = url.split('/')[2]
@@ -40,6 +45,11 @@ export default (req, res) => {
     if (url.startsWith('/tasks/') && method == 'DELETE') {
         const id = url.split('/')[2];
         return taskController.deleteTask(req, res, id); // Chama o controle de deletar tarefas
+    }
+
+    // DELETE /tasks = deleta todas as tarefas
+    if (url.startsWith('/tasks') && method == 'DELETE') {
+        return taskController.deleteTasks(req, res);
     }
 
     // Rota não encontrada, ou seja, nenhuma condição foi atendida

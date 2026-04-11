@@ -52,6 +52,14 @@ const createTask = async (req, res) => {
     res.end(JSON.stringify(task));
 };
 
+// Criar um template com várias tarefas (POST)
+const createTemplate = async (req, res) => {
+    const template = taskService.createTemplate(); // Chama o serviço de criar templates
+
+    res.statusCode = 201;
+    res.end(JSON.stringify(template));
+}
+
 // Atualizar tarefa (PUT)
 const updateTask = async (req, res, id) => {
     const body = await getRequestBody(req);
@@ -96,8 +104,23 @@ const deleteTask = (req, res, id) => {
         ));
     }
 
-    res.end(JSON.stringify({ message: 'Removida' }));
+    res.end(JSON.stringify({ message: `Tarefa com id ${id} removida com sucesso!` }));
 };
+
+// Deletar todas as tarefas (DELETE)
+const deleteTasks = (req, res) => {
+    const success = taskService.deleteTasks(); // Chama o serviço de deletar todas as tarefas
+
+        // Caso retorne false, mostra que ocorreu um erro
+    if (!success) {
+        res.statusCode = 404;
+        return res.end(JSON.stringify(
+            { message: 'Ocorreu um erro!' }
+        ));
+    }
+
+    res.end(JSON.stringify({ message: 'Todas as tarefas foram removidas com sucesso!' }));
+}
 
 // Exporta todas as funções de controle para que possa ser usado no arquivo de rotas
 export {
@@ -106,5 +129,7 @@ export {
     createTask,
     updateTask,
     deleteTask,
-    updateStatus
+    updateStatus,
+    deleteTasks,
+    createTemplate
 };

@@ -1,6 +1,6 @@
 // Arquivo responsável pela lógica real
 import fs from 'fs';
-import createTask from '../models/taskModel.js'; // Importa a função de criar tarefa do modelo
+import * as taskModel from '../models/taskModel.js'; // Importa a função de criar tarefa do modelo
 const jsonTaskPath = './src/jsons/tasks.json';
 
 // A variável 'tasks' guarda o Array de objetos presente no arquivo JSON local
@@ -50,10 +50,21 @@ const listTask = (id) => {
 
 // Criar tarefa (POST)
 const addTask = (title) => {
-    const task = createTask(idCounter++, title); // Cria uma tarefa usando a função que retorna o modelo da mesma 
+    const task = taskModel.createTask(idCounter++, title); // Cria uma tarefa usando a função que retorna o modelo da mesma 
     tasks.push(task); // Adiciona ao Array de tarefas
     updateJSON(); // Chama a função de atualizar o JSON local // Chama a função de atualizar o JSON local
     return task;
+};
+
+// Criar template de tarefas (POST)
+const createTemplate = () => {
+    const template = taskModel.createTemplate(idCounter); // Cria um template usando a função que retorna o modelo de template 
+    tasks = [...template]; // Adiciona ao Array de tarefas
+
+    updateJSON(); // Chama a função de atualizar o JSON local
+    
+    idCounter += 4; // Acresenta 4 na contagem de IDs, pois foram criados 4 tarefas
+    return template;
 };
 
 // Atualizar tarefa (PUT)
@@ -93,6 +104,13 @@ const deleteTask = (id) => {
     return true; // Retorna true se tiver deletado
 };
 
+// Deletar todas as tarefas (DELETE)
+const deleteTasks = () => {
+    tasks = []; // Faz o array ficar vazio
+    updateJSON(); // Chama a função de atualizar o JSON local
+    return true;
+}
+
 // Exporta as funções para ser usada no arquivo de controle
 export {
     addTask,
@@ -101,4 +119,6 @@ export {
     deleteTask,
     listTask,
     updateStatus,
+    deleteTasks,
+    createTemplate
 };
