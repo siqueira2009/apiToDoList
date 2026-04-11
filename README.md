@@ -40,6 +40,10 @@ Esta API permite gerenciar uma lista de tarefas (To-Do List), permitindo a cria�
 > Desafio #1: buscar tarefa por ID
 ><br> ―― **Solução**: criar uma rota com URI `tasks/:id` com método `GET`. Com isso, criamos uma lógica que procura uma tarefa com o ID correspondente ao da URI no Array. Se achar, retorna, se não achar, retorna que não existe uma tarefa com esse ID no Array
 
+### Nível **Sênior**
+> Desafio #1: substitua o array em memória por um arquivo
+><br> ―― **Solução**: usar o módulo `fs` (filesystem) do Node.js para criar arquivos (`fs.writeFileSync()`) e ler arquivos (`fs.readFileSync()`). Com isso, toda inicialização do servidor, há a tentativa de ler o arquivo JSON local, caso haja erro, criamos o arquivo. No fim, guardamos isso na variável `tasks`. Em cada modificação de tarefas (POST, DELETE e PUT), atualizamos o arquivo JSON local, usando o `fs.writeFileSync()` com o Array de tarefas convertidos para formato de dado JSON usando `JSON.stringfy()`
+
 
 ---
 

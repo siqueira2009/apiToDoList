@@ -39,7 +39,7 @@ export default (req, res) => {
     // DELETE /tasks/:id = deleta uma tarefa específica
     if (url.startsWith('/tasks/') && method == 'DELETE') {
         const id = url.split('/')[2];
-        return taskController.updateStatus(req, res, id); // Chama o controle de deletar tarefas
+        return taskController.deleteTask(req, res, id); // Chama o controle de deletar tarefas
     }
 
     // Rota não encontrada, ou seja, nenhuma condição foi atendida
