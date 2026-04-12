@@ -1,7 +1,7 @@
 // Arquivo responsável pela lógica real
 import fs from 'fs';
 import * as taskModel from '../models/taskModel.js'; // Importa a função de criar tarefa do modelo
-const jsonTaskPath = './src/jsons/tasks.json';
+const jsonTaskPath = 'src/jsons/tasks.json';
 
 // A variável 'tasks' guarda o Array de objetos presente no arquivo JSON local
 // Começa vazio
@@ -24,7 +24,7 @@ try {
     tasks = JSON.parse(fs.readFileSync(jsonTaskPath, 'utf-8'));// e depois usamos o JSON.parse() para transformar o Array de objetos JSON em um Array de objetos formato JS
 }
 
-let idCounter = 1; // Variável que guarda o ID da última tarefa criada (é acrescentado para cada tarefa ter um ID maior que a da anterior)
+let idCounter = tasks.length; // Variável que guarda o ID da última tarefa criada (é acrescentado para cada tarefa ter um ID maior que a da anterior)
 
 // Função que atualiza o JSON local
 const updateJSON = () => {
@@ -59,7 +59,7 @@ const addTask = (title) => {
 // Criar template de tarefas (POST)
 const createTemplate = () => {
     const template = taskModel.createTemplate(idCounter); // Cria um template usando a função que retorna o modelo de template 
-    tasks = [...template]; // Adiciona ao Array de tarefas
+    tasks = tasks.concat(template); // Adiciona ao Array de tarefas
 
     updateJSON(); // Chama a função de atualizar o JSON local
     

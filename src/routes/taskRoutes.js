@@ -24,12 +24,12 @@ export default (req, res) => {
     }
 
     // GET /tasks/:id = pega uma tarefa específica
-    if (url.startsWith('/tasks') && method == 'GET') {
+    if (url.startsWith('/tasks/') && method == 'GET') {
         const id = url.split('/')[2]
         return taskController.listTask(req, res, id); // Chama o controle de listar uma tarefa
     }
 
-    // PUT /tasks/:id = atualiza uma tarefa específica
+    // PUT /tasks/:id ou /tasks/:id/:status = atualiza uma tarefa específica
     if (url.startsWith('/tasks/') && method == 'PUT') {
         const id = url.split('/')[2];
         const status = url.split('/')[3];
