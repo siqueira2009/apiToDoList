@@ -1,7 +1,7 @@
 # 📝 API To-Do List - Node.js puro
 
 > API RESTful de gerenciamento de tarefas construída **sem frameworks**, utilizando apenas o módulo nativo `http` do Node.js e ES Modules.  
-> Projeto desenvolvido para a disciplina **Programação Web II** — Etec Bento Quirino, 2026.
+> Projeto desenvolvido para a disciplina **Programação Web II** - Etec Bento Quirino, 2026.
 
 ---
 
@@ -62,7 +62,7 @@ Esta API permite gerenciar uma lista de tarefas (To-Do List), permitindo a cria�
 
 ```
 apiToDoList/
-├── app.js                          # Ponto de entrada — cria e inicia o servidor
+├── app.js                          # Ponto de entrada - cria e inicia o servidor
 ├── package.json                    # Configurações do projeto (type: module)
 └── src/
     ├── controllers/
@@ -156,7 +156,7 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 1. Criar uma tarefa — `POST /tasks`
+### 1. Criar uma tarefa - `POST /tasks`
 
 **Body (JSON):**
 ```json
@@ -176,7 +176,7 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 2. Criar um template de tarefas — `POST /tasks/template`
+### 2. Criar um template de tarefas - `POST /tasks/template`
 
 **Resposta:**
 ```json
@@ -204,7 +204,7 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 3. Listar todas as tarefas — `GET /tasks`
+### 3. Listar todas as tarefas - `GET /tasks`
 
 **Resposta:**
 ```json
@@ -219,7 +219,7 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 4. Buscar tarefa por ID — `GET /tasks/0`
+### 4. Buscar tarefa por ID - `GET /tasks/0`
 
 **Resposta:**
 ```json
@@ -239,7 +239,7 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 5. Atualizar tarefa — `PUT /tasks/0`
+### 5. Atualizar tarefa - `PUT /tasks/0`
 
 **Body (JSON):**
 ```json
@@ -259,7 +259,7 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 6. Atualizar status — `PUT /tasks/0/1`
+### 6. Atualizar status - `PUT /tasks/0/1`
 
 > `1 = true` | `0 = false`
 
@@ -274,7 +274,7 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 7. Deletar tarefa — `DELETE /tasks/0`
+### 7. Deletar tarefa - `DELETE /tasks/0`
 
 **Resposta:**
 ```json
@@ -285,7 +285,7 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 8. Deletar todas as tarefas  — `DELETE /tasks`
+### 8. Deletar todas as tarefas  - `DELETE /tasks`
 
 **Resposta:**
 ```json
@@ -296,7 +296,7 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 
 ---
 
-### 9. Rota inválida — `GET /qualquer-outra-rota`
+### 9. Rota inválida - `GET /qualquer-outra-rota`
 
 ```json
 {
@@ -304,4 +304,4 @@ Para encerrar o servidor, pressione `Ctrl + C` no terminal.
 }
 ```
 
-***Projeto desenvolvido para fins educacionais por [Lucas Siqueira](https://www.linkedin.com/in/lucasdesouzasiqueira/).***
+***Projeto desenvolvido para fins educacionais por [Lucas Siqueira](https://www.linkedin.com/in/lucasdesouzasiqueira/). Matéria de PW2 com professor Rafael e Paulo***
